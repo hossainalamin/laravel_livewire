@@ -1,4 +1,9 @@
 <div>
+    <style>
+    nav svg{
+        height:20px;
+    }
+    </style>
     <section>
         <div class="container">
             <div class="row">
@@ -24,6 +29,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{$users->links()}}
                         </div>
                     </div>
                 </div>
