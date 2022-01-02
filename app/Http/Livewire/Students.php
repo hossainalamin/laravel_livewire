@@ -9,6 +9,7 @@ class Students extends Component
     public $lastname;
     public $email;
     public $phone;
+    public $id;
     public function resetinput(){
         $this->firstname = '';
         $this->lastname = '';
@@ -26,6 +27,34 @@ class Students extends Component
         session()->flash('message','student created successfully');
         $this->resetinput();
         $this->emit('studentAdded');
+    }
+    public function edit($id){
+        $student = Student::where('id',$id)->first();
+        $this->id = $student['id'];
+        $this->firstname = $student['firstname'];
+        $this->lastname = $student['lastname'];
+        $this->email = $student['email'];
+        $this->phone = $student['phone'];
+    }
+    public function update(){
+        $validation = $this->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email',
+            'phone' =>'required'
+        ]);
+        if($this->id){
+            $student = Student::find($this->id);
+            $student->update([
+                "firstname" => $this->firstname,
+                "last" => $this->lastname,
+                "email" => $this->email,
+                "phone" => $this->phone,
+            ]);
+            $this->resetinput();
+            session()->flash('message','update successfull');
+            $this->emit('updatestudent');
+        }
     }
     public function render()
     {

@@ -18,6 +18,9 @@
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                                 Add student
                               </button>
+                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStudentModal">
+                                update student
+                              </button>
                         </div>
                         <div class="card-body">
                             <table class="table table-stripped">
