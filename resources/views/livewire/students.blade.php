@@ -5,6 +5,7 @@
 </style>
 <div>
     @include('livewire.create')
+    @include('livewire.update')
     <section>
         <div class="container">
             <div class="row">
@@ -17,10 +18,7 @@
                             All student
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                                 Add student
-                              </button>
-                              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateStudentModal">
-                                update student
-                              </button>
+                            </button>
                         </div>
                         <div class="card-body">
                             <table class="table table-stripped">
@@ -29,6 +27,7 @@
                                     <th>Lastname</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Action</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($students as $student)
@@ -37,6 +36,14 @@
                                             <td>{{ $student['lastname'] }}</td>
                                             <td>{{ $student['email'] }}</td>
                                             <td>{{ $student['phone'] }}</td>
+                                            <td>  
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#updateStudentModal" wire:click.prevent="edit({{$student->id}})">
+                                            Edit</button>
+                                            </td>
+                                            <td>  
+                                            <button type="button" class="btn btn-danger" onclick="return confirm('Are you sure to delete');" wire:click.prevent="delete({{$student['id']}})">
+                                            Delete</button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

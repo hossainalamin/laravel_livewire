@@ -15,10 +15,13 @@
     <script>
         window.livewire.on('studentAdded',()=>{
             $('#addStudentModal').modal('hide');
-        });
+        })
         window.livewire.on('updatestudent',()=>{
             $('#addStudentModal').modal('hide');
-        });
+        })
+        window.livewire.on('fileupload',()=>{
+            $('#file-upload')[0].reset();
+        })
     </script>
 </body>
 </html>

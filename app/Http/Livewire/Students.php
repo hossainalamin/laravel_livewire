@@ -1,15 +1,14 @@
 <?php
-
 namespace App\Http\Livewire;
 use App\Models\Student;
 use Livewire\Component;
 class Students extends Component
 {
+    public $ids;
     public $firstname;
     public $lastname;
     public $email;
     public $phone;
-    public $id;
     public function resetinput(){
         $this->firstname = '';
         $this->lastname = '';
@@ -29,12 +28,12 @@ class Students extends Component
         $this->emit('studentAdded');
     }
     public function edit($id){
-        $student = Student::where('id',$id)->first();
-        $this->id = $student['id'];
-        $this->firstname = $student['firstname'];
-        $this->lastname = $student['lastname'];
-        $this->email = $student['email'];
-        $this->phone = $student['phone'];
+        $students = Student::where('id',$id)->first();
+        $this->ids = $students->id;
+        $this->firstname = $students->firstname;
+        $this->lastname = $students->lastname;
+        $this->email = $students->email;
+        $this->phone = $students->phone;
     }
     public function update(){
         $validation = $this->validate([
@@ -43,8 +42,8 @@ class Students extends Component
             'email' => 'required|email',
             'phone' =>'required'
         ]);
-        if($this->id){
-            $student = Student::find($this->id);
+        if($this->ids){
+            $student = Student::find($this->ids);
             $student->update([
                 "firstname" => $this->firstname,
                 "last" => $this->lastname,
@@ -54,6 +53,12 @@ class Students extends Component
             $this->resetinput();
             session()->flash('message','update successfull');
             $this->emit('updatestudent');
+        }
+    }
+    public function delete($id){
+        if($id){
+        Student::where('id',$id)->delete();
+        session()->flash('message','Delete successfull');
         }
     }
     public function render()
